@@ -262,9 +262,9 @@ def decode_weather_code(code):
     }
     return codes.get(code, "Cloudy")
 
-# ==========================================
+
 # 4. COMPARISON LOGIC
-# ==========================================
+
 def compare_cities(city_a, city_b):
     temp_diff = round(city_a["temperature"] - city_b["temperature"], 1)
     humidity_diff = city_a["humidity"] - city_b["humidity"]
