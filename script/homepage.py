@@ -99,7 +99,8 @@ class HomePage(tk.Frame):
         self.app.show_page("city_compare")
     def open_todays_plan(self):
         self.app.show_page("todays_plan")
-
+    def open_activity_advisor(self):
+        self.app.show_page("activity_advisor")
 
 # ==========================================
 # THE APP 
