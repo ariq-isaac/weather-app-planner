@@ -7,6 +7,7 @@ import tkinter as tk
 from city_compare import CityComparePage
 from todays_plan import TodaysPlanPage
 from activity_advisor import ActivityAdvisorPage
+from hydration_safety import HydrationSafetyPage
 
 # ==========================================
 # THE HOME PAGE 
@@ -67,7 +68,8 @@ class HomePage(tk.Frame):
             font=("Arial", 15, "bold"),
             width=20,
             height=3,
-            bg="lightblue"
+            bg="lightblue",
+            command=self.open_hydration_safety
             )
         self.hydration_safety.grid(row=2, column=0, padx=10, pady=10)
 
@@ -103,6 +105,8 @@ class HomePage(tk.Frame):
         self.app.show_page("todays_plan")
     def open_activity_advisor(self):
         self.app.show_page("activity_advisor")
+    def open_hydration_safety(self):
+        self.app.show_page("hydration_safety")
 
 
 # ==========================================
@@ -129,6 +133,7 @@ class WeatherApp:
         self.pages["todays_plan"] = TodaysPlanPage(self.container, self)
         self.pages["city_compare"] = CityComparePage(self.container, self)
         self.pages["activity_advisor"] = ActivityAdvisorPage(self.container, self)
+        self.pages["hydration_safety"] = HydrationSafetyPage(self.container, self)
 
         # Put every page in the same spot of the container
         for page in self.pages.values():
