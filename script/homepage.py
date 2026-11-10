@@ -1,151 +1,55 @@
-# THIS IS THE FIRST / HOMEPAGE OF THE PROGRAM
-# Run this file to start the program:  python homepage.py
+"""Application entry point and page navigation."""
 
 import tkinter as tk
 
-# Imports other pages
-from city_compare import CityComparePage
-from todays_plan import TodaysPlanPage
-from activity_advisor import ActivityAdvisorPage
-
-# ==========================================
-# THE HOME PAGE 
-# ==========================================
-class HomePage(tk.Frame):
-
-    # Page Initialization
-    def __init__(self, parent, app):
-        super().__init__(parent, bg="white")
-        self.app = app
-        self.display_widgets()
-
-    # Display Widgets
-    def display_widgets(self):
-
-        # Title/Header
-        self.header = tk.Label(
-            self,
-            text="Welcome to Weather Planner App",
-            font=("Arial", 20, "bold"),
-            bg="white",
-            fg="darkblue"
-            )
-        self.header.pack(pady=(10,10))
-
-        # Creates The frame which the buttons will stay
-        self.button_frame = tk.Frame(
-            self,
-            bg="white"
-            )
-
-        # All the buttons
-        self.todays_plan = tk.Button(
-            self.button_frame,
-            text="Today's Plan",
-            font=("Arial", 15, "bold"),
-            width=20,
-            height=3,
-            bg="lightblue",
-            command=self.open_todays_plan
-            )
-        self.todays_plan.grid(row=0, column=0, padx=10, pady=10)
-
-        self.activity_advisor = tk.Button(
-            self.button_frame,
-            text="Activity Advisor",
-            font=("Arial", 15, "bold"),
-            width=20,
-            height=3,
-            bg="lightblue",
-            command=self.open_activity_advisor
-            )
-        self.activity_advisor.grid(row=1, column=0, padx=10, pady=10)
-
-        self.hydration_safety = tk.Button(
-            self.button_frame,
-            text="Hydration & Safety",
-            font=("Arial", 15, "bold"),
-            width=20,
-            height=3,
-            bg="lightblue"
-            )
-        self.hydration_safety.grid(row=2, column=0, padx=10, pady=10)
-
-        self.city_compare = tk.Button(
-            self.button_frame,
-            text="City Compare",
-            font=("Arial", 15, "bold"),
-            width=20,
-            height=3,
-            bg="lightblue",
-            command=self.open_city_compare
-            )
-        self.city_compare.grid(row=3, column=0, padx=10, pady=10)
-
-        self.exit = tk.Button(
-            self.button_frame,
-            text="Exit",
-            font=("Arial", 15, "bold"),
-            width=20,
-            height=3,
-            bg="lightblue",
-            command=self.app.window.destroy
-            )
-        self.exit.grid(row=4, column=0, padx=10, pady=10)
-
-        # Packs all buttons
-        self.button_frame.pack()
-
-    # Functions that will be used as event listener for buttons
-    def open_city_compare(self):
-        self.app.show_page("city_compare")
-    def open_todays_plan(self):
-        self.app.show_page("todays_plan")
-    def open_activity_advisor(self):
-        self.app.show_page("activity_advisor")
+from ui import (
+    ActivityAdvisorPage,
+    CityComparePage,
+    HomePage,
+    HydrationSafetyPage,
+    TodaysPlanPage,
+)
+from weather_data import WeatherDataRepository
+from weather_logic import WeatherPlannerLogic
 
 
-# ==========================================
-# THE APP 
-# ==========================================
 class WeatherApp:
-
-    # App Initialization
-    def __init__(self):
+    def __init__(self) -> None:
         self.window = tk.Tk()
         self.window.title("Weather Planner App")
         self.window.geometry("500x700")
         self.window.configure(bg="white")
 
-        # The container is the "screen". All pages sit inside it on top of each other
+        self.weather_data = WeatherDataRepository()
+        self.logic = WeatherPlannerLogic(self.weather_data)
+
         self.container = tk.Frame(self.window, bg="white")
         self.container.pack(fill="both", expand=True)
         self.container.grid_rowconfigure(0, weight=1)
         self.container.grid_columnconfigure(0, weight=1)
 
-        # A dictionary: page name -> page
-        self.pages = {}
-        self.pages["home"] = HomePage(self.container, self)
-        self.pages["todays_plan"] = TodaysPlanPage(self.container, self)
-        self.pages["city_compare"] = CityComparePage(self.container, self)
-        self.pages["activity_advisor"] = ActivityAdvisorPage(self.container, self)
-
-        # Put every page in the same spot of the container
+        page_types = {
+            "home": HomePage,
+            "todays_plan": TodaysPlanPage,
+            "city_compare": CityComparePage,
+            "activity_advisor": ActivityAdvisorPage,
+            "hydration_safety": HydrationSafetyPage,
+        }
+        self.pages = {
+            name: page_type(self.container, self)
+            for name, page_type in page_types.items()
+        }
         for page in self.pages.values():
             page.grid(row=0, column=0, sticky="nsew")
 
-        # Start on the home page
         self.show_page("home")
 
-    # Brings one page to the front (this is the "go to /city_compare" part)
-    def show_page(self, name):
+    def show_page(self, name: str) -> None:
         self.pages[name].tkraise()
 
-    # Runs the program when called
-    def run(self):
+    def run(self) -> None:
         self.window.mainloop()
 
 
 if __name__ == "__main__":
-    app = WeatherApp()
-    app.run()
+    WeatherApp().run()
