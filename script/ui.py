@@ -9,7 +9,7 @@ import tkinter as tk
 from logic import TodaysPlanner
 from logic import ActivityAdvisor
 from logic import HydrationCalculator
-from logic import CityComparer
+from logic import CityCompare
 
 class HomePage(tk.Frame):
 
@@ -491,7 +491,7 @@ class CityComparePage(tk.Frame):
     def __init__(self, parent, app):
         super().__init__(parent, bg="white")
         self.app = app
-        self.comparer = CityComparer(app.weather_data)
+        self.comparer = CityCompare(app.weather_data)
         self.states = app.weather_data.get_states()
         self.display_widgets()
 
