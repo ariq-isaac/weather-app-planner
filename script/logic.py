@@ -228,7 +228,7 @@ class HydrationCalculator:
 # ==========================================
 # CITY COMPARE LOGIC
 # ==========================================
-class CityComparer:
+class CityCompare:
 
     def __init__(self, weather_data):
         self.weather_data = weather_data
