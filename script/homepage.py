@@ -3,6 +3,7 @@
 
 import tkinter as tk
 
+<<<<<<< HEAD
 # Imports other pages
 from city_compare import CityComparePage
 from todays_plan import TodaysPlanPage
@@ -108,6 +109,16 @@ class HomePage(tk.Frame):
 # ==========================================
 # THE APP 
 # ==========================================
+=======
+# Imports every tkinter page as well as the weather data
+from data import WeatherData
+from ui import HomePage
+from ui import TodaysPlanPage
+from ui import ActivityAdvisorPage
+from ui import HydrationSafetyPage
+from ui import CityComparePage
+
+>>>>>>> 5875588a3cdcb515d1c6e3f3b71090447ac9030b
 class WeatherApp:
 
     # App Initialization
@@ -116,6 +127,9 @@ class WeatherApp:
         self.window.title("Weather Planner App")
         self.window.geometry("500x700")
         self.window.configure(bg="white")
+
+        # The weather data is loaded once here and shared with every page
+        self.weather_data = WeatherData()
 
         # The container is the "screen". All pages sit inside it on top of each other
         self.container = tk.Frame(self.window, bg="white")
@@ -129,6 +143,10 @@ class WeatherApp:
         self.pages["todays_plan"] = TodaysPlanPage(self.container, self)
         self.pages["city_compare"] = CityComparePage(self.container, self)
         self.pages["activity_advisor"] = ActivityAdvisorPage(self.container, self)
+<<<<<<< HEAD
+=======
+        self.pages["hydration_safety"] = HydrationSafetyPage(self.container, self)
+>>>>>>> 5875588a3cdcb515d1c6e3f3b71090447ac9030b
 
         # Put every page in the same spot of the container
         for page in self.pages.values():
@@ -137,7 +155,7 @@ class WeatherApp:
         # Start on the home page
         self.show_page("home")
 
-    # Brings one page to the front (this is the "go to /city_compare" part)
+    # Brings one page to the front
     def show_page(self, name):
         self.pages[name].tkraise()
 

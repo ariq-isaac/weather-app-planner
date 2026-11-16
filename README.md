@@ -1,105 +1,64 @@
-# Weather App Planner 
+# Weather Planner App
 
-This Weather Planner App is a Python GUI app that fetches weather forecasts to help plan your day around heat,
-with hourly activity planning, safe-window advice, hydration guidance, and city comparison
+This Weather Planner App is a Python GUI app that reads weather forecasts to help plan your day around heat,
+with hourly activity planning, activity advice, hydration guidance, and city comparison.
 
-### Pages:
+## Pages
+
 1. Homepage
-2. Activity Advisor
-3. City Compare
-4. Hydration Safety
-5. Todays Plan
+2. Today's Plan
+3. Activity Advisor
+4. Hydration & Safety
+5. City Compare
 
-#
+---
 
-### Features:
+## Features
 
-1. **Todays Plan Page**: 
-Input city -> Fetch forecast -> Score each hour ->
-Score each hour -> Show Planner
+1. **Today's Plan**:
+Choose state -> Read forecast -> Score each hour ->
+Show best hour and hourly scores
 
-2. **Activity Advisor**: 
-Input city -> Fetch forecast
--> Apply limit -> Safe Window -> Show advice
+2. **Activity Advisor**:
+Choose state -> Read current hour's weather ->
+Check rain, UV and heat -> Show advice and suggested activities
 
-3. **Hydration And Safety**:
-Input city -> Fetch forecast -> Find peak heat ->
-Set Advice -> Show water goal
+3. **Hydration & Safety**:
+Choose state -> Read current hour's weather -> Calculate feels-like temperature ->
+Set risk level -> Show water goal and hourly risk
 
 4. **City Compare**:
-Add city -> Fetch forecast -> Score each city ->
-Rank cities -> Show comparison
+Choose two states -> Read current hour's weather -> Score each city ->
+Show comparison and recommendation
 
-#
+---
 
-### Weather Database:
+## Weather Database
 
 (NOTE: the database is hardcoded instead of fetching actual up-to-date weather data)
 
 The weather database is kept in a JSON file inside `./database`.
 
-Since weather database will only display weather forecast from the 6th hour to 20th hour,
-each program will import the datetime module to get the current hour and fetch the weather forecast based on that hour.
+Since the weather database only has forecasts from the 6th hour to the 20th hour,
+`data.py` uses the datetime module to get the current hour and reads the forecast for that hour.
+If the current hour is before 6 or after 20, the closest hour (6 or 20) is used instead.
 
-#
+---
 
-### What every Python file must have (not including homepage.py):
+## What every Python file does
 
-```
-# -- Import all needed libraries --
-import tkinter as tk
-import ... 
+1. `data.py`: Loads the weather database from `./database/malaysia_weather.json` and looks up the weather for a state (including the current hour).
+2. `logic.py`: Handles all the business logic and calculations. These are intentionally separated from the User Interface code to improve design. The pages in `ui.py` create the logic classes and use them.
+3. `ui.py`: Creates the User Interface for every tkinter page (including the home page). The main window comes from `homepage.py`.
+4. `homepage.py`: The entry point of the program. It creates the main window, loads the weather data once, creates all the pages from `ui.py`, and handles switching between pages.
 
-# -- Class name (use the page name. for city_compare.py the class name is CityComparePage) --
+---
 
-class PageName(tk.Frame):
-    # Page Initialization
-    def __init__(self, parent, app):
-        super().__init__(parent, bg="white")
-        self.app = app
-        self.load_data()
-        self.display_widgets()
-
-    # Display Widgets
-    def display_widgets(self):
-        ...
-
-    # Gets the weather of one place for the current hour
-    def get_city_data(self, state):
-        place = self.data[state]
-
-        # The json only has hours 6 to 20, so keep the hour inside that range
-        hour = datetime.now().hour
-        if hour < 6:
-            hour = 6
-        if hour > 20:
-            hour = 20
-
-        for entry in place["hours"]:
-            if entry["hour"] == hour:
-                return {
-                    "name": place["city"],
-                    "temperature": entry["temp_c"],
-                    "humidity": entry["humidity_pct"],
-                    "uv_index": entry["uv_index"],
-                    "rain_chance": entry["rain_chance_pct"],
-                }
-
-    # --- Here you can put the unique functions that belongs to each page ---
-
-    # Adds event listener to the buttons
-    def on_click(self):
-        ...
-
-    # Goes back to the home page
-    def go_back(self):
-        self.app.show_page("home")
-```
-
-#### Notes:
-1. Each page must have exactly one class. and they must be the name of the filename/page name. For example, in a `city_compare.py` file the class name should be `CityComparePage`.
-2. Each program have the same `__init__()`, `get_city_data()` and `go_back()` function (or methods in a class sense), while `display_widgets()` and `on_click()` are unique to each page. They all must be in the same class
-#
+### Modules imported
+1. `tkinter` : To create the user interface
+2. `json` : To read the weather database
+3. `os` : Builds the path to the JSON file
+4. `datetime` : Gets the current hour
 
 ### How to run:
 
