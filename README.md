@@ -2,7 +2,8 @@
  
 This Weather Planner App is a Python GUI app that reads weather forecasts to help plan your day around heat,
 with hourly activity planning, activity advice, hydration guidance, and city comparison.
- 
+
+Github Repository Link: https://github.com/ariq-isaac/weather-app-planner
 ## Pages
  
 1. Homepage
@@ -55,6 +56,7 @@ If the current hour is before 6 or after 20, the closest hour (6 or 20) is used 
 4. `datetime` : Gets the current hour
 5. `math` : Calculates the movement of the animated weather icons and scenes
 6. `random` : Gives the animated clouds, rain drops and icons random positions and speeds
+   
 ### How to run:
  
 1. Open `./script/homepage.py` (Entry Point)
