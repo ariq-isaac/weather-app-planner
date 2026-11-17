@@ -14,14 +14,14 @@ class WeatherApp:
 
     def __init__(self):
         self.window = ctk.CTk()
-        self.window.title("Weather Planner Pro")
-        self.window.geometry("520x720")
-        self.window.minsize(480, 640)
+        self.window.title("Weather Planner")
+        self.window.geometry("900x720")
+        self.window.minsize(800, 650)
 
         self.weather_data = WeatherData()
 
         self.container = ctk.CTkFrame(self.window, fg_color="transparent")
-        self.container.pack(fill="both", expand=True, padx=15, pady=15)
+        self.container.pack(fill="both", expand=True, padx=20, pady=20)
         self.container.grid_rowconfigure(0, weight=1)
         self.container.grid_columnconfigure(0, weight=1)
 
