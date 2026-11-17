@@ -2,6 +2,8 @@
 
 This Weather Planner App is a Python GUI app built with **CustomTkinter** that reads weather forecasts to help plan your day around heat, featuring hourly activity planning, activity advice, hydration guidance, and city comparison.
 
+Github Repository Link: https://github.com/ariq-isaac/weather-app-planner
+
 ## Pages
 
 1. Homepage
