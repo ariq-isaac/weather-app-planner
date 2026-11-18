@@ -4,6 +4,12 @@ This Weather Planner App is a Python GUI app built with **CustomTkinter** that r
 
 Github Repository Link: https://github.com/ariq-isaac/weather-app-planner
 
+### How to run:
+
+1. Install customtkinter: `pip install customtkinter`
+2. Run `python homepage.py` in your terminal (Make sure you are inside ./script/ folder)
+
+
 ## Pages
 
 1. Homepage
@@ -36,7 +42,7 @@ Show comparison and recommendation.
 
 ## Weather Database
 
-*(NOTE: the database is hardcoded instead of fetching actual up-to-date weather data)*
+The database is hardcoded instead of fetching actual up-to-date weather data
 
 The weather database is kept in a JSON file inside `./database`.
 
@@ -60,8 +66,3 @@ If the current hour is before 6 or after 20, the closest hour (6 or 20) is used 
 2. `json` : To read the weather database
 3. `os` : Builds the path to the JSON file
 4. `datetime` : Gets the current hour
-
-### How to run:
-
-1. Install customtkinter: `pip install customtkinter`
-2. Run `python homepage.py` in your terminal (Make sure you are inside ./script/ folder)
