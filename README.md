@@ -42,7 +42,7 @@ Show comparison and recommendation.
 
 ## Weather Database
 
-The database is hardcoded instead of fetching actual up-to-date weather data
+The database is hardcoded instead of fetching actual up-to-date weather data. 
 
 The weather database is kept in a JSON file inside `./database`.
 
